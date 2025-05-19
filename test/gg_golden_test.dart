@@ -26,7 +26,6 @@ void main() {
         await recreateGoldensDir();
 
         // Golden file does not exst
-        const filePathRelative = 'test/goldens/test/test.golden.json';
         final goldenFile = File('test/goldens/test/test.golden.json');
         expect(await goldenFile.exists(), false);
 
@@ -68,11 +67,12 @@ void main() {
         }
 
         expect(
-          message,
+          message.split('\n'),
           [
-            'Run golden tests with updateGoldens: true and try again.',
-            'review "$filePathRelative" and run tests again.',
-          ].join('\n'),
+            'Golden file does not match data.',
+            'Set "updateGoldens" to "true" and try again.',
+            'Review "test/goldens/test/test.golden.json" afterwards.',
+          ],
         );
       });
     });
@@ -100,8 +100,7 @@ void main() {
         }
         expect(message.trim().split('\n'), [
           'Golden file was updated successful.',
-          'Please set "updateGolden: true"',
-          'back to false and try again.',
+          'Please set "updateGolden" back to "false" and try again.',
         ]);
 
         // Golden file exists

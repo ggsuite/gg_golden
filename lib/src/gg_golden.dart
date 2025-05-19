@@ -37,8 +37,7 @@ Future<void> expectGolden(
     fail(
       [
         'Golden file was updated successful.',
-        'Please set "updateGolden: true"',
-        'back to false and try again.',
+        'Please set "updateGolden" back to "false" and try again.',
       ].join('\n'),
     );
   }
@@ -60,8 +59,9 @@ Future<void> expectGolden(
     if (needsGoldenUpdate) {
       fail(
         [
-          'Run golden tests with updateGoldens: true and try again.',
-          'review "$filePathRelative" and run tests again.',
+          'Golden file does not match data.',
+          'Set "updateGoldens" to "true" and try again.',
+          'Review "$filePathRelative" afterwards.',
         ].join('\n'),
       );
     }
