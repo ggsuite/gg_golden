@@ -9,3 +9,4 @@
 ### Changed
 
 - Improve error message
+- Increase version
