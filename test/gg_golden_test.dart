@@ -99,8 +99,6 @@ void main() {
           message = (e as TestFailure).message!;
         }
         expect(message.trim().split('\n'), [
-          'Expected: <false>',
-          '  Actual: <true>',
           'Golden file was updated successful.',
           'Please set "updateGolden: true"',
           'back to false and try again.',

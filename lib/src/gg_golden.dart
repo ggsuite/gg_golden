@@ -34,10 +34,8 @@ Future<void> expectGolden(
   if (updateGoldensEnabled && (updateGolden || updateGoldensFromEnv())) {
     await Directory(p.dirname(filePath)).create(recursive: true);
     await File(filePath).writeAsString(expectedStr);
-    expect(
-      updateGolden,
-      false,
-      reason: [
+    fail(
+      [
         'Golden file was updated successful.',
         'Please set "updateGolden: true"',
         'back to false and try again.',
