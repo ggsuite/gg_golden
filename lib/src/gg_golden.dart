@@ -6,6 +6,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -51,7 +52,12 @@ Future<void> expectGolden(
     needsGoldenUpdate =
         !const DeepCollectionEquality().equals(expected, golden);
     if (needsGoldenUpdate) {
-      fail('Run "dart run update_goldens" and review "$filePathRelative".');
+      fail(
+        [
+          'Set an environment variable "UPDATE_GOLDENS=true", ',
+          'review "$filePathRelative" and run tests again.',
+        ].join('\n'),
+      );
     }
   } else {
     expect(needsGoldenUpdate, isFalse);

@@ -26,6 +26,7 @@ void main() {
         await recreateGoldensDir();
 
         // Golden file does not exst
+        const filePathRelative = 'test/goldens/test/test.golden.json';
         final goldenFile = File('test/goldens/test/test.golden.json');
         expect(await goldenFile.exists(), false);
 
@@ -62,7 +63,10 @@ void main() {
 
         expect(
           message,
-          'Run "dart run update_goldens" and review "test/goldens/test/test.golden.json".',
+          [
+            'Set an environment variable "UPDATE_GOLDENS=true", ',
+            'review "$filePathRelative" and run tests again.',
+          ].join('\n'),
         );
       });
     });
