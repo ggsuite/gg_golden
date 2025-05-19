@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## [1.0.4] - 2025-05-19
 
 - Improve error message

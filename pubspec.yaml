@@ -1,6 +1,6 @@
 name: gg_golden
 description: gg_golden implements a way to manage relational data in JSON.
-version: 1.0.4
+version: 1.0.5
 repository: https://github.com/ggsuite/gg_golden.git
 
 environment:
