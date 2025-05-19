@@ -39,7 +39,6 @@
   // Copilot
   // ##############
 
-  "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
