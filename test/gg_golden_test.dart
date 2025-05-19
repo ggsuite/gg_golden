@@ -21,7 +21,7 @@ void main() {
       await goldensDir.create(recursive: true);
     }
 
-    group('with updateGoldens = true', () {
+    group('with updateGolden = true', () {
       test('creates a golden file in goldens()', () async {
         await recreateGoldensDir();
 
@@ -32,11 +32,15 @@ void main() {
 
         // Create golden
         final json = {'foo': 'true'};
-        await expectGolden(
-          'test/test.golden.json',
-          json,
-          mockPlatformUpdateGoldens: true,
-        );
+        try {
+          await expectGolden(
+            'test/test.golden.json',
+            json,
+            updateGolden: true,
+          );
+        } catch (e) {
+          expect(e, isNotNull);
+        }
 
         // Golden file exists
         expect(await goldenFile.exists(), true);
@@ -45,6 +49,7 @@ void main() {
         await expectGolden(
           'test/test.golden.json',
           json,
+          updateGolden: false,
         );
 
         // Testing against a modified golden should fail
@@ -55,6 +60,7 @@ void main() {
           await expectGolden(
             'test/test.golden.json',
             modifiedJson,
+            updateGolden: false,
           );
         } catch (e) {
           expect(e, isA<TestFailure>());
@@ -64,7 +70,7 @@ void main() {
         expect(
           message,
           [
-            'Set an environment variable "UPDATE_GOLDENS=true", ',
+            'Run golden tests with updateGoldens: true and try again.',
             'review "$filePathRelative" and run tests again.',
           ].join('\n'),
         );
@@ -81,11 +87,24 @@ void main() {
 
         // Create golden
         final json = {'foo': 'true'};
-        await expectGolden(
-          'test/test.golden.json',
-          json,
-          mockPlatformUpdateGoldens: true,
-        );
+        var message = '';
+        try {
+          await expectGolden(
+            'test/test.golden.json',
+            json,
+            updateGolden: true,
+          );
+        } catch (e) {
+          expect(e, isA<TestFailure>());
+          message = (e as TestFailure).message!;
+        }
+        expect(message.trim().split('\n'), [
+          'Expected: <false>',
+          '  Actual: <true>',
+          'Golden file was updated successful.',
+          'Please set "updateGolden: true"',
+          'back to false and try again.',
+        ]);
 
         // Golden file exists
         expect(await goldenFile.exists(), true);
@@ -94,12 +113,12 @@ void main() {
         await expectGolden(
           'test/test.golden.json',
           json,
+          updateGolden: false,
         );
 
         // Try to update with a modified golden and updateGoldens = false
         // It fails, because updateGoldens is false
 
-        var message = '';
         try {
           final modifiedJson = {'foo': 'juhu'};
 
@@ -107,7 +126,7 @@ void main() {
             'test/test.golden.json',
             modifiedJson,
             updateGoldensEnabled: false,
-            mockPlatformUpdateGoldens: true,
+            updateGolden: true,
           );
         } catch (e) {
           expect(e, isA<TestFailure>());

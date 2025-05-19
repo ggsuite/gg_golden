@@ -12,7 +12,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 /// If this is set to true, the golden files will be updated.
-bool shouldUpdateGoldens() {
+bool updateGoldensFromEnv() {
   return Platform.environment['UPDATE_GOLDENS'] == 'true';
 }
 
@@ -20,8 +20,8 @@ bool shouldUpdateGoldens() {
 Future<void> expectGolden(
   String fileName,
   dynamic expected, {
+  required bool updateGolden,
   bool updateGoldensEnabled = true,
-  bool mockPlatformUpdateGoldens = false,
 }) async {
   final goldensDir = p.join(Directory.current.path, 'test', 'goldens');
   final filePath = p.join(goldensDir, fileName);
@@ -31,10 +31,18 @@ Future<void> expectGolden(
   final expectedStr = const JsonEncoder.withIndent('  ').convert(expected);
 
   // Write golden file if update is enabled
-  if (updateGoldensEnabled &&
-      (mockPlatformUpdateGoldens || shouldUpdateGoldens())) {
+  if (updateGoldensEnabled && (updateGolden || updateGoldensFromEnv())) {
     await Directory(p.dirname(filePath)).create(recursive: true);
     await File(filePath).writeAsString(expectedStr);
+    expect(
+      updateGolden,
+      false,
+      reason: [
+        'Golden file was updated successful.',
+        'Please set "updateGolden: true"',
+        'back to false and try again.',
+      ].join('\n'),
+    );
   }
 
   // Read golden file
@@ -54,7 +62,7 @@ Future<void> expectGolden(
     if (needsGoldenUpdate) {
       fail(
         [
-          'Set an environment variable "UPDATE_GOLDENS=true", ',
+          'Run golden tests with updateGoldens: true and try again.',
           'review "$filePathRelative" and run tests again.',
         ].join('\n'),
       );
