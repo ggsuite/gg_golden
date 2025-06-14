@@ -84,8 +84,8 @@ void main() {
           message = (e as TestFailure).message!;
         }
         expect(message.trim().split('\n'), [
+          'Please set "updateGolden" back to "false".',
           'Golden file was updated successful.',
-          'Please set "updateGolden" back to "false" and try again.',
         ]);
 
         // Golden file exists

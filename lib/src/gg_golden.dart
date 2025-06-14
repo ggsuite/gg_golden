@@ -36,8 +36,8 @@ Future<void> expectGolden(
     await File(filePath).writeAsString(expectedStr);
     fail(
       [
+        'Please set "updateGolden" back to "false".',
         'Golden file was updated successful.',
-        'Please set "updateGolden" back to "false" and try again.',
       ].join('\n'),
     );
   }
