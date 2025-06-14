@@ -4,7 +4,7 @@ version: 1.0.5
 repository: https://github.com/ggsuite/gg_golden.git
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
   collection: ^1.19.1
@@ -12,4 +12,4 @@ dependencies:
   test: ^1.24.0
 
 dev_dependencies:
-  lints: ^5.0.0
+  lints: ^6.0.0

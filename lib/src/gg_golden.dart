@@ -54,8 +54,10 @@ Future<void> expectGolden(
   }
 
   if (updateGoldensEnabled) {
-    needsGoldenUpdate =
-        !const DeepCollectionEquality().equals(expected, golden);
+    needsGoldenUpdate = !const DeepCollectionEquality().equals(
+      expected,
+      golden,
+    );
     if (needsGoldenUpdate) {
       fail(
         [

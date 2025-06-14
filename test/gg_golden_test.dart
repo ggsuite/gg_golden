@@ -32,11 +32,7 @@ void main() {
         // Create golden
         final json = {'foo': 'true'};
         try {
-          await expectGolden(
-            'test/test.golden.json',
-            json,
-            updateGolden: true,
-          );
+          await expectGolden('test/test.golden.json', json, updateGolden: true);
         } catch (e) {
           expect(e, isNotNull);
         }
@@ -45,11 +41,7 @@ void main() {
         expect(await goldenFile.exists(), true);
 
         // Next golden file should pass
-        await expectGolden(
-          'test/test.golden.json',
-          json,
-          updateGolden: false,
-        );
+        await expectGolden('test/test.golden.json', json, updateGolden: false);
 
         // Testing against a modified golden should fail
         var message = '';
@@ -66,14 +58,11 @@ void main() {
           message = (e as TestFailure).message!;
         }
 
-        expect(
-          message.split('\n'),
-          [
-            'Golden file does not match data.',
-            'Set "updateGoldens" to "true" and try again.',
-            'Review "test/goldens/test/test.golden.json" afterwards.',
-          ],
-        );
+        expect(message.split('\n'), [
+          'Golden file does not match data.',
+          'Set "updateGoldens" to "true" and try again.',
+          'Review "test/goldens/test/test.golden.json" afterwards.',
+        ]);
       });
     });
 
@@ -89,11 +78,7 @@ void main() {
         final json = {'foo': 'true'};
         var message = '';
         try {
-          await expectGolden(
-            'test/test.golden.json',
-            json,
-            updateGolden: true,
-          );
+          await expectGolden('test/test.golden.json', json, updateGolden: true);
         } catch (e) {
           expect(e, isA<TestFailure>());
           message = (e as TestFailure).message!;
@@ -107,11 +92,7 @@ void main() {
         expect(await goldenFile.exists(), true);
 
         // Next golden file should pass
-        await expectGolden(
-          'test/test.golden.json',
-          json,
-          updateGolden: false,
-        );
+        await expectGolden('test/test.golden.json', json, updateGolden: false);
 
         // Try to update with a modified golden and updateGoldens = false
         // It fails, because updateGoldens is false
@@ -130,15 +111,12 @@ void main() {
           message = (e as TestFailure).message!;
         }
 
-        expect(
-          message.split('\n'),
-          [
-            "Expected: {'foo': 'true'}",
-            "  Actual: {'foo': 'juhu'}",
-            "   Which: at location ['foo'] is 'juhu' instead of 'true'",
-            '',
-          ],
-        );
+        expect(message.split('\n'), [
+          "Expected: {'foo': 'true'}",
+          "  Actual: {'foo': 'juhu'}",
+          "   Which: at location ['foo'] is 'juhu' instead of 'true'",
+          '',
+        ]);
       });
     });
   });
