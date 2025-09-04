@@ -7,3 +7,4 @@
 library;
 
 export 'src/expect_golden.dart';
+export 'src/write_golden.dart';

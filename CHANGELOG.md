@@ -5,6 +5,7 @@
 ### Added
 
 - Add .gitattributes file
+- Add writeGolden, expectGolden is deprecated
 
 ### Changed
 

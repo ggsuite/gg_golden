@@ -17,6 +17,7 @@ bool updateGoldensFromEnv() {
 }
 
 /// Updates the golden file with the given content and compares it.
+@Deprecated('Use writeGolden or writeGoldenBinary instead')
 Future<void> expectGolden(
   String fileName,
   dynamic expected, {
