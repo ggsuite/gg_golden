@@ -6,4 +6,4 @@
 
 library;
 
-export 'src/gg_golden.dart';
+export 'src/expect_golden.dart';

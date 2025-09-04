@@ -6,6 +6,10 @@
 
 - Add .gitattributes file
 
+### Changed
+
+- Rename gg\_golden.dart into expect\_golden
+
 ## [1.0.5] - 2025-06-14
 
 - Update Dart SDK to 3.8.0
