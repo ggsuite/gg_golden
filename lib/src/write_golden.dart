@@ -33,10 +33,15 @@ Future<void> writeGolden({
   final filePath = join(goldensDir, fileName);
 
   // Stringify json
-  final expectedStr = const JsonEncoder.withIndent('  ').convert(data);
+  final encoded = const JsonEncoder.withIndent('  ').convert(data);
 
-  await Directory(dirname(filePath)).create(recursive: true);
-  await File(filePath).writeAsString(expectedStr);
+  final dir = Directory(dirname(filePath));
+  if (!await dir.exists()) {
+    await dir.create(recursive: true); // coverage:ignore-line
+  }
+
+  assert(await dir.exists());
+  await (File(filePath).writeAsString(encoded));
 }
 
 // .............................................................................
