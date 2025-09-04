@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.0.0] - 2025-09-04
 
 ### Added
 
@@ -31,7 +31,7 @@
 
 - Increase version
 
-[Unreleased]: https://github.com/ggsuite/gg_golden/compare/1.0.5...HEAD
+[2.0.0]: https://github.com/ggsuite/gg_golden/compare/1.0.5...2.0.0
 [1.0.5]: https://github.com/ggsuite/gg_golden/compare/1.0.4...1.0.5
 [1.0.4]: https://github.com/ggsuite/gg_golden/compare/1.0.3...1.0.4
 [1.0.3]: https://github.com/ggsuite/gg_golden/tag/%tag
