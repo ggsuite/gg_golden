@@ -5,6 +5,12 @@
 ### Added
 
 - Add .gitattributes file
+- Add writeGolden, expectGolden is deprecated
+- Add some info to README.md
+
+### Changed
+
+- Rename gg\_golden.dart into expect\_golden
 
 ## [1.0.5] - 2025-06-14
 

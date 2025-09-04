@@ -4,6 +4,8 @@
 // Use of this source code is governed by terms that can be
 // found in the LICENSE file in the root of this package.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:io';
 
 import 'package:gg_golden/gg_golden.dart';
@@ -11,22 +13,13 @@ import 'package:test/test.dart';
 
 void main() {
   group('expectGolden(fileName, expected, updateGoldensEnabled)', () {
-    final goldensDir = Directory('test/goldens');
-
-    Future<void> recreateGoldensDir() async {
-      // Delete test/goldens dir when existing
-      if (await goldensDir.exists()) {
-        await goldensDir.delete(recursive: true);
-      }
-      await goldensDir.create(recursive: true);
-    }
-
     group('with updateGolden = true', () {
       test('creates a golden file in goldens()', () async {
-        await recreateGoldensDir();
-
         // Golden file does not exst
         final goldenFile = File('test/goldens/test/test.golden.json');
+        if (await goldenFile.exists()) {
+          await goldenFile.delete();
+        }
         expect(await goldenFile.exists(), false);
 
         // Create golden
@@ -68,10 +61,11 @@ void main() {
 
     group('with updateGoldens = false', () {
       test('does not update golden file', () async {
-        await recreateGoldensDir();
-
-        // Golden file does not exst
+        // Golden file does not exist
         final goldenFile = File('test/goldens/test/test.golden.json');
+        if (await goldenFile.exists()) {
+          await goldenFile.delete();
+        }
         expect(await goldenFile.exists(), false);
 
         // Create golden
