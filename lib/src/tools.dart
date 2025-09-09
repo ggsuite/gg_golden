@@ -11,7 +11,7 @@ import 'package:path/path.dart';
 
 // .............................................................................
 /// Returns the root of the current project
-Future<String> projectRoot(String path, {int depth = 2}) async {
+Future<String> projectRoot(String path, {int depth = 10}) async {
   // Is path directory? If not, use parent directory
   final dir = await FileSystemEntity.isFile(path)
       ? File(path).parent

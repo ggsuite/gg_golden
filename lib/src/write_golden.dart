@@ -41,7 +41,7 @@ Future<void> writeGolden({
   }
 
   assert(await dir.exists());
-  await (File(filePath).writeAsString(encoded));
+  await (File(filePath).writeAsString(data is String ? data : encoded));
 }
 
 // .............................................................................

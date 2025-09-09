@@ -44,6 +44,10 @@ void main() {
         await testGolden('numbers.json', 578, '578');
       });
 
+      test('write strings', () async {
+        await testGolden('string.json', 'Some string', 'Some string');
+      });
+
       test('writes booleans', () async {
         await testGolden('numbers.json', true, 'true');
       });
