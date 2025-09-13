@@ -38,12 +38,60 @@ void main() {
       });
     });
 
-    group('goldenDir(stackTrace)', () {
-      test('returns the goldens dir for the current test file', () async {
+    group('callerPath(stackTrace)', () {
+      test('with the current test file', () {
         expect(
-          await goldenDir(StackTrace.current.toString()),
-          endsWith('test/goldens/tools'),
+          callerPath(StackTrace.current.toString()),
+          endsWith('gg_golden/test/tools_test.dart'),
         );
+      });
+
+      test('with a windows path', () {
+        final dir = callerPath(
+          [
+            '#0 something else',
+            '#1  main. file://C:\\Local\\Temp\\tools_test/some_test.dart',
+          ].join('\n'),
+        );
+
+        expect(dir, 'C:/Local/Temp/tools_test/some_test.dart');
+      });
+
+      test('with a linux path', () {
+        final dir = callerPath(
+          [
+            '#0 something else',
+            '#1  main. file:///dev/tools_test/some_test.dart',
+          ].join('\n'),
+        );
+
+        expect(dir, '/dev/tools_test/some_test.dart');
+      });
+
+      test('throws when no path is found', () {
+        var message = <String>[];
+        try {
+          callerPath(['#0 a', '#1 main. file://b'].join('\n'));
+        } catch (e) {
+          message = (e as dynamic).message.toString().split('\n');
+        }
+
+        expect(message, [
+          'write_golden: Could not extract file path from call stack.',
+          '  Please submit an error report to ',
+          '  https://github.com/ggsuite/gg_golden/issues',
+        ]);
+      });
+    });
+
+    group('goldenDir(stackTrace)', () {
+      group('returns the goldens dir for the current test file', () {
+        test('with the current test file', () async {
+          expect(
+            await goldenDir(StackTrace.current.toString()),
+            endsWith('test/goldens/tools'),
+          );
+        });
       });
 
       group('throws', () {
@@ -81,7 +129,7 @@ void main() {
           var message = <String>[];
           try {
             await goldenDir(
-              ['#0 a', '#1  main. file:///notest.dart'].join('\n'),
+              ['#0 a', '#1  main. file:///no-test.dart'].join('\n'),
             );
           } catch (e) {
             message = (e as dynamic).message.toString().split('\n');

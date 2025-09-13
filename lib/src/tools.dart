@@ -33,8 +33,8 @@ Future<String> projectRoot(String path, {int depth = 10}) async {
 }
 
 // .............................................................................
-/// Derivces the goldens directory from a stack trace
-Future<String> goldenDir(String stackTrace) async {
+/// Derives the goldens directory from a stack trace
+String callerPath(String stackTrace) {
   final callerStackTraceEntry = stackTrace
       .toString()
       .split('\n')
@@ -49,13 +49,37 @@ Future<String> goldenDir(String stackTrace) async {
     _throw('Could not find file:// in call stack.');
   }
 
-  final callerFilePath = entry.split('file://')[1].split(':')[0];
-  if (!callerFilePath.endsWith('_test.dart')) {
+  // Extract the file path from the entry, handling both Windows and Linux paths
+  final match = RegExp(
+    r'.*file://(/|)([A-Za-z]:)?([^:]*\.dart)',
+  ).firstMatch(entry);
+  if (match == null) {
+    _throw('Could not extract file path from call stack.');
+  }
+  String callerFilePath;
+  if (match!.group(2) != null) {
+    // Windows path
+    callerFilePath = '${match.group(2)}${match.group(3)}';
+  } else {
+    // Unix path
+    callerFilePath = '/${match.group(3)}';
+  }
+  callerFilePath = callerFilePath.replaceAll('\\', '/');
+
+  return callerFilePath;
+}
+
+// .............................................................................
+/// Derives the goldens directory from a stack trace
+Future<String> goldenDir(String stackTrace) async {
+  final cp = callerPath(stackTrace);
+
+  if (!cp.endsWith('_test.dart')) {
     throw Exception('writeGolden(...) must only be called from test files');
   }
 
-  final root = await projectRoot(callerFilePath);
-  final relativePath = relative(callerFilePath, from: root);
+  final root = await projectRoot(cp);
+  final relativePath = relative(cp, from: root);
   if (!relativePath.startsWith(RegExp(r'test[/\\]'))) {
     throw Exception(
       'writeGolden(...) must only be called from files within test',
@@ -64,7 +88,7 @@ Future<String> goldenDir(String stackTrace) async {
 
   // test/write_golden_test.dart -> write_golden
   final directory = relativePath.substring(5, relativePath.length - 10);
-  final result = join(root, 'test', 'goldens', directory);
+  final result = join(root, 'test', 'goldens', directory).replaceAll('\\', '/');
 
   return result;
 }

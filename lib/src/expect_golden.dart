@@ -26,7 +26,9 @@ Future<void> expectGolden(
 }) async {
   final goldensDir = p.join(Directory.current.path, 'test', 'goldens');
   final filePath = p.join(goldensDir, fileName);
-  final filePathRelative = p.relative(filePath, from: Directory.current.path);
+  final filePathRelative = p
+      .relative(filePath, from: Directory.current.path)
+      .replaceAll('\\', '/');
 
   // Stringify json
   final expectedStr = const JsonEncoder.withIndent('  ').convert(expected);

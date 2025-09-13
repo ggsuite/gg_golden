@@ -493,5 +493,6 @@
     "forceToTop": true
   },
   "dart.analyzeAngularTemplates": false,
-  "html.format.enable": true
+  "html.format.enable": true,
+  "cSpell.words": ["Gatzsche", "juhu"]
 }

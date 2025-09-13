@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- Fix path on windows
+
 ## [2.0.1] - 2025-09-09
 
 ### Fixed
@@ -37,6 +43,7 @@
 
 - Increase version
 
+[Unreleased]: https://github.com/ggsuite/gg_golden/compare/2.0.1...HEAD
 [2.0.1]: https://github.com/ggsuite/gg_golden/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/ggsuite/gg_golden/compare/1.0.5...2.0.0
 [1.0.5]: https://github.com/ggsuite/gg_golden/compare/1.0.4...1.0.5

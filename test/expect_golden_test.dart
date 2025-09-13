@@ -15,7 +15,7 @@ void main() {
   group('expectGolden(fileName, expected, updateGoldensEnabled)', () {
     group('with updateGolden = true', () {
       test('creates a golden file in goldens()', () async {
-        // Golden file does not exst
+        // Golden file does not exist
         final goldenFile = File('test/goldens/test/test.golden.json');
         if (await goldenFile.exists()) {
           await goldenFile.delete();
