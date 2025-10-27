@@ -91,6 +91,11 @@ void main() {
             await goldenDir(StackTrace.current.toString()),
             endsWith('test/goldens/tools'),
           );
+
+          expect(
+            await goldenDir(StackTrace.current.toString()),
+            await goldenDir(),
+          );
         });
       });
 

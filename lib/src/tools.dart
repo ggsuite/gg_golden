@@ -71,7 +71,8 @@ String callerPath(String stackTrace) {
 
 // .............................................................................
 /// Derives the goldens directory from a stack trace
-Future<String> goldenDir(String stackTrace) async {
+Future<String> goldenDir([String? stackTrace]) async {
+  stackTrace ??= StackTrace.current.toString();
   final cp = callerPath(stackTrace);
 
   if (!cp.endsWith('_test.dart')) {

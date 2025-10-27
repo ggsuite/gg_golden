@@ -7,4 +7,5 @@
 library;
 
 export 'src/expect_golden.dart';
+export 'src/tools.dart';
 export 'src/write_golden.dart';
