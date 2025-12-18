@@ -12,9 +12,9 @@ import 'package:path/path.dart';
 
 // .............................................................................
 /// Write golden file with json compatible data types
-Future<void> writeGolden({
-  required String fileName,
-  required dynamic data,
+Future<void> writeGolden(
+  String fileName,
+  dynamic data, {
   bool writeAsBytes = false,
 }) async {
   if (data is! Map &&
@@ -49,7 +49,6 @@ Future<void> writeGolden({
 Future<void> writeBinaryGolden({
   required String fileName,
   required List<int> data,
-  bool writeAsBytes = false,
 }) async {
   final goldensDir = await goldenDir(StackTrace.current.toString());
   final filePath = join(goldensDir, fileName);

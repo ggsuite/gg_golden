@@ -19,7 +19,7 @@ void main() {
         dynamic contentIn,
         dynamic contentOutExpected,
       ) async {
-        await writeGolden(fileName: fileName, data: contentIn);
+        await writeGolden(fileName, contentIn);
 
         final expectedPath = 'test/goldens/write_golden/$fileName';
         final file = File(expectedPath);
@@ -69,7 +69,7 @@ void main() {
       test('throws on invalid format', () async {
         var message = <String>[];
         try {
-          await writeGolden(fileName: 'foo.txt', data: Foo());
+          await writeGolden('foo.txt', Foo());
         } catch (e) {
           message = (e as dynamic).message.toString().split('\n');
         }
