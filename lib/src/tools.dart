@@ -1,5 +1,5 @@
 // @license
-// Copyright (c) 2025 Dr. Gabriel Gatzsche
+// Copyright (c) ggsuite
 //
 // Use of this source code is governed by terms that can be
 // found in the LICENSE file in the root of this package.
@@ -50,9 +50,8 @@ String callerPath(String stackTrace) {
   }
 
   // Extract the file path from the entry, handling both Windows and Linux paths
-  final match = RegExp(
-    r'.*file://(/|)([A-Za-z]:)?([^:]*\.dart)',
-  ).firstMatch(entry);
+  final match = RegExp(r'.*file://(/|)([A-Za-z]:)?([^:]*\.dart)')
+      .firstMatch(entry);
   if (match == null) {
     _throw('Could not extract file path from call stack.');
   }
