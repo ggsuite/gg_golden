@@ -50,9 +50,8 @@ String callerPath(String stackTrace) {
   }
 
   // Extract the file path from the entry, handling both Windows and Linux paths
-  final match = RegExp(
-    r'.*file://(/|)([A-Za-z]:)?([^:]*\.dart)',
-  ).firstMatch(entry);
+  final match = RegExp(r'.*file://(/|)([A-Za-z]:)?([^:]*\.dart)')
+      .firstMatch(entry);
   if (match == null) {
     _throw('Could not extract file path from call stack.');
   }
