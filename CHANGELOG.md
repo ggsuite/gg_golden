@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.0 - 2026-09-03
+
+### Changed
+
+- Depend on matcher instead of test so Flutter packages can use gg_golden
+
 ## 3.2.0 - 2026-09-02
 
 ### Changed
