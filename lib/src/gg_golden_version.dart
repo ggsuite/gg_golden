@@ -9,4 +9,4 @@
 // coverage:ignore-file
 
 /// The version of the `gg_golden` package.
-const String ggGoldenVersion = '3.2.0';
+const String ggGoldenVersion = '3.3.0';
